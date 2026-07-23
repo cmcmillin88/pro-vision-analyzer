@@ -1,7 +1,3 @@
-export const APP_NAME = "Projekt 13";
-export const APP_EDITION = "Professional Edition";
-export const APP_VERSION = "1.1.0";
-
 import {
   LayoutDashboard,
   Trophy,
@@ -14,6 +10,10 @@ import {
   Settings,
   type LucideIcon,
 } from "lucide-react";
+
+export const APP_NAME = "Projekt 13";
+export const APP_EDITION = "Professional Edition";
+export const APP_VERSION = "0.4.1";
 
 export type NavItem = {
   label: string;
