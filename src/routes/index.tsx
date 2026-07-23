@@ -6,8 +6,11 @@ import { SectionTitle } from "@/components/SectionTitle";
 import { DataTable, type Column } from "@/components/DataTable";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/Button";
+import { PageHeader } from "@/components/PageHeader";
+import { Section } from "@/components/Section";
+import { ChartCard } from "@/components/ChartCard";
 import { KPIS, MATCHES, ALERTS } from "@/services/mockData";
-import { BarChart3, Bell } from "lucide-react";
+import { Bell } from "lucide-react";
 import type { Match } from "@/types";
 
 export const Route = createFileRoute("/")({
@@ -47,11 +50,11 @@ const alertTone = { info: "info", warning: "warning", danger: "danger" } as cons
 function DashboardPage() {
   return (
     <AppShell>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-          <p className="text-sm text-muted-foreground">Realtidsöversikt över matcher, marknad och AI-signaler.</p>
-        </div>
+      <Section className="space-y-6">
+        <PageHeader
+          title="Dashboard"
+          subtitle="Realtidsöversikt över matcher, marknad och AI-signaler."
+        />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {KPIS.map((k) => <KPICard key={k.label} kpi={k} />)}
@@ -92,16 +95,15 @@ function DashboardPage() {
           </Card>
         </div>
 
-        <Card>
-          <SectionTitle title="Analys" subtitle="Diagram och trender (kommer snart)" />
-          <div className="h-64 rounded-xl border border-dashed border-border/60 grid place-items-center text-muted-foreground">
-            <div className="flex flex-col items-center gap-2">
-              <BarChart3 className="h-8 w-8 opacity-60" />
-              <span className="text-sm">Diagram-platshållare</span>
-            </div>
+        <div>
+          <SectionTitle title="Analysöversikt" subtitle="Diagram och trender (kommer snart)" />
+          <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <ChartCard title="Value över tid" subtitle="Rullande 30 dagar" />
+            <ChartCard title="ROI" subtitle="Ackumulerad avkastning" />
+            <ChartCard title="AI Precision" subtitle="Träffsäkerhet per liga" />
           </div>
-        </Card>
-      </div>
+        </div>
+      </Section>
     </AppShell>
   );
 }
