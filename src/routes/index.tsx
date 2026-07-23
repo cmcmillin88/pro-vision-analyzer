@@ -50,11 +50,11 @@ const alertTone = { info: "info", warning: "warning", danger: "danger" } as cons
 function DashboardPage() {
   return (
     <AppShell>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-          <p className="text-sm text-muted-foreground">Realtidsöversikt över matcher, marknad och AI-signaler.</p>
-        </div>
+      <Section className="space-y-6">
+        <PageHeader
+          title="Dashboard"
+          subtitle="Realtidsöversikt över matcher, marknad och AI-signaler."
+        />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {KPIS.map((k) => <KPICard key={k.label} kpi={k} />)}
