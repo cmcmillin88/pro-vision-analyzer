@@ -6,8 +6,11 @@ import { SectionTitle } from "@/components/SectionTitle";
 import { DataTable, type Column } from "@/components/DataTable";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/Button";
+import { PageHeader } from "@/components/PageHeader";
+import { Section } from "@/components/Section";
+import { ChartCard } from "@/components/ChartCard";
 import { KPIS, MATCHES, ALERTS } from "@/services/mockData";
-import { BarChart3, Bell } from "lucide-react";
+import { Bell } from "lucide-react";
 import type { Match } from "@/types";
 
 export const Route = createFileRoute("/")({
