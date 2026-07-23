@@ -9,8 +9,56 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StatistikRouteImport } from './routes/statistik'
+import { Route as MatchcenterRouteImport } from './routes/matchcenter'
+import { Route as MarknadenRouteImport } from './routes/marknaden'
+import { Route as KupongRouteImport } from './routes/kupong'
+import { Route as InstallningarRouteImport } from './routes/installningar'
+import { Route as EfteranalysRouteImport } from './routes/efteranalys'
+import { Route as DatacenterRouteImport } from './routes/datacenter'
+import { Route as AiRouteImport } from './routes/ai'
 import { Route as IndexRouteImport } from './routes/index'
 
+const StatistikRoute = StatistikRouteImport.update({
+  id: '/statistik',
+  path: '/statistik',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatchcenterRoute = MatchcenterRouteImport.update({
+  id: '/matchcenter',
+  path: '/matchcenter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarknadenRoute = MarknadenRouteImport.update({
+  id: '/marknaden',
+  path: '/marknaden',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KupongRoute = KupongRouteImport.update({
+  id: '/kupong',
+  path: '/kupong',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstallningarRoute = InstallningarRouteImport.update({
+  id: '/installningar',
+  path: '/installningar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EfteranalysRoute = EfteranalysRouteImport.update({
+  id: '/efteranalys',
+  path: '/efteranalys',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatacenterRoute = DatacenterRouteImport.update({
+  id: '/datacenter',
+  path: '/datacenter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiRoute = AiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +67,144 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
+  '/datacenter': typeof DatacenterRoute
+  '/efteranalys': typeof EfteranalysRoute
+  '/installningar': typeof InstallningarRoute
+  '/kupong': typeof KupongRoute
+  '/marknaden': typeof MarknadenRoute
+  '/matchcenter': typeof MatchcenterRoute
+  '/statistik': typeof StatistikRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
+  '/datacenter': typeof DatacenterRoute
+  '/efteranalys': typeof EfteranalysRoute
+  '/installningar': typeof InstallningarRoute
+  '/kupong': typeof KupongRoute
+  '/marknaden': typeof MarknadenRoute
+  '/matchcenter': typeof MatchcenterRoute
+  '/statistik': typeof StatistikRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
+  '/datacenter': typeof DatacenterRoute
+  '/efteranalys': typeof EfteranalysRoute
+  '/installningar': typeof InstallningarRoute
+  '/kupong': typeof KupongRoute
+  '/marknaden': typeof MarknadenRoute
+  '/matchcenter': typeof MatchcenterRoute
+  '/statistik': typeof StatistikRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/ai'
+    | '/datacenter'
+    | '/efteranalys'
+    | '/installningar'
+    | '/kupong'
+    | '/marknaden'
+    | '/matchcenter'
+    | '/statistik'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/ai'
+    | '/datacenter'
+    | '/efteranalys'
+    | '/installningar'
+    | '/kupong'
+    | '/marknaden'
+    | '/matchcenter'
+    | '/statistik'
+  id:
+    | '__root__'
+    | '/'
+    | '/ai'
+    | '/datacenter'
+    | '/efteranalys'
+    | '/installningar'
+    | '/kupong'
+    | '/marknaden'
+    | '/matchcenter'
+    | '/statistik'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiRoute: typeof AiRoute
+  DatacenterRoute: typeof DatacenterRoute
+  EfteranalysRoute: typeof EfteranalysRoute
+  InstallningarRoute: typeof InstallningarRoute
+  KupongRoute: typeof KupongRoute
+  MarknadenRoute: typeof MarknadenRoute
+  MatchcenterRoute: typeof MatchcenterRoute
+  StatistikRoute: typeof StatistikRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/statistik': {
+      id: '/statistik'
+      path: '/statistik'
+      fullPath: '/statistik'
+      preLoaderRoute: typeof StatistikRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matchcenter': {
+      id: '/matchcenter'
+      path: '/matchcenter'
+      fullPath: '/matchcenter'
+      preLoaderRoute: typeof MatchcenterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marknaden': {
+      id: '/marknaden'
+      path: '/marknaden'
+      fullPath: '/marknaden'
+      preLoaderRoute: typeof MarknadenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kupong': {
+      id: '/kupong'
+      path: '/kupong'
+      fullPath: '/kupong'
+      preLoaderRoute: typeof KupongRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/installningar': {
+      id: '/installningar'
+      path: '/installningar'
+      fullPath: '/installningar'
+      preLoaderRoute: typeof InstallningarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/efteranalys': {
+      id: '/efteranalys'
+      path: '/efteranalys'
+      fullPath: '/efteranalys'
+      preLoaderRoute: typeof EfteranalysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datacenter': {
+      id: '/datacenter'
+      path: '/datacenter'
+      fullPath: '/datacenter'
+      preLoaderRoute: typeof DatacenterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai': {
+      id: '/ai'
+      path: '/ai'
+      fullPath: '/ai'
+      preLoaderRoute: typeof AiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +217,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiRoute: AiRoute,
+  DatacenterRoute: DatacenterRoute,
+  EfteranalysRoute: EfteranalysRoute,
+  InstallningarRoute: InstallningarRoute,
+  KupongRoute: KupongRoute,
+  MarknadenRoute: MarknadenRoute,
+  MatchcenterRoute: MatchcenterRoute,
+  StatistikRoute: StatistikRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
