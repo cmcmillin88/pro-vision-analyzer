@@ -1,6 +1,6 @@
 # Roadmap
 
-## Sprint 1.1 (nuvarande)
+## Sprint 1.1 (klar)
 - Projektstruktur
 - Mörk professionell layout
 - Sidebar, Topbar, Dashboard
