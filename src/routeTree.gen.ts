@@ -18,6 +18,8 @@ import { Route as EfteranalysRouteImport } from './routes/efteranalys'
 import { Route as DatacenterRouteImport } from './routes/datacenter'
 import { Route as AiRouteImport } from './routes/ai'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MatchcenterIndexRouteImport } from './routes/matchcenter.index'
+import { Route as MatchcenterMatchIdRouteImport } from './routes/matchcenter.$matchId'
 
 const StatistikRoute = StatistikRouteImport.update({
   id: '/statistik',
@@ -64,6 +66,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MatchcenterIndexRoute = MatchcenterIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MatchcenterRoute,
+} as any)
+const MatchcenterMatchIdRoute = MatchcenterMatchIdRouteImport.update({
+  id: '/$matchId',
+  path: '/$matchId',
+  getParentRoute: () => MatchcenterRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,8 +85,10 @@ export interface FileRoutesByFullPath {
   '/installningar': typeof InstallningarRoute
   '/kupong': typeof KupongRoute
   '/marknaden': typeof MarknadenRoute
-  '/matchcenter': typeof MatchcenterRoute
+  '/matchcenter': typeof MatchcenterRouteWithChildren
   '/statistik': typeof StatistikRoute
+  '/matchcenter/$matchId': typeof MatchcenterMatchIdRoute
+  '/matchcenter/': typeof MatchcenterIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +98,9 @@ export interface FileRoutesByTo {
   '/installningar': typeof InstallningarRoute
   '/kupong': typeof KupongRoute
   '/marknaden': typeof MarknadenRoute
-  '/matchcenter': typeof MatchcenterRoute
   '/statistik': typeof StatistikRoute
+  '/matchcenter/$matchId': typeof MatchcenterMatchIdRoute
+  '/matchcenter': typeof MatchcenterIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,8 +111,10 @@ export interface FileRoutesById {
   '/installningar': typeof InstallningarRoute
   '/kupong': typeof KupongRoute
   '/marknaden': typeof MarknadenRoute
-  '/matchcenter': typeof MatchcenterRoute
+  '/matchcenter': typeof MatchcenterRouteWithChildren
   '/statistik': typeof StatistikRoute
+  '/matchcenter/$matchId': typeof MatchcenterMatchIdRoute
+  '/matchcenter/': typeof MatchcenterIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +128,8 @@ export interface FileRouteTypes {
     | '/marknaden'
     | '/matchcenter'
     | '/statistik'
+    | '/matchcenter/$matchId'
+    | '/matchcenter/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,8 +139,9 @@ export interface FileRouteTypes {
     | '/installningar'
     | '/kupong'
     | '/marknaden'
-    | '/matchcenter'
     | '/statistik'
+    | '/matchcenter/$matchId'
+    | '/matchcenter'
   id:
     | '__root__'
     | '/'
@@ -133,6 +153,8 @@ export interface FileRouteTypes {
     | '/marknaden'
     | '/matchcenter'
     | '/statistik'
+    | '/matchcenter/$matchId'
+    | '/matchcenter/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -143,7 +165,7 @@ export interface RootRouteChildren {
   InstallningarRoute: typeof InstallningarRoute
   KupongRoute: typeof KupongRoute
   MarknadenRoute: typeof MarknadenRoute
-  MatchcenterRoute: typeof MatchcenterRoute
+  MatchcenterRoute: typeof MatchcenterRouteWithChildren
   StatistikRoute: typeof StatistikRoute
 }
 
@@ -212,8 +234,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/matchcenter/': {
+      id: '/matchcenter/'
+      path: '/'
+      fullPath: '/matchcenter/'
+      preLoaderRoute: typeof MatchcenterIndexRouteImport
+      parentRoute: typeof MatchcenterRoute
+    }
+    '/matchcenter/$matchId': {
+      id: '/matchcenter/$matchId'
+      path: '/$matchId'
+      fullPath: '/matchcenter/$matchId'
+      preLoaderRoute: typeof MatchcenterMatchIdRouteImport
+      parentRoute: typeof MatchcenterRoute
+    }
   }
 }
+
+interface MatchcenterRouteChildren {
+  MatchcenterMatchIdRoute: typeof MatchcenterMatchIdRoute
+  MatchcenterIndexRoute: typeof MatchcenterIndexRoute
+}
+
+const MatchcenterRouteChildren: MatchcenterRouteChildren = {
+  MatchcenterMatchIdRoute: MatchcenterMatchIdRoute,
+  MatchcenterIndexRoute: MatchcenterIndexRoute,
+}
+
+const MatchcenterRouteWithChildren = MatchcenterRoute._addFileChildren(
+  MatchcenterRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -223,7 +273,7 @@ const rootRouteChildren: RootRouteChildren = {
   InstallningarRoute: InstallningarRoute,
   KupongRoute: KupongRoute,
   MarknadenRoute: MarknadenRoute,
-  MatchcenterRoute: MatchcenterRoute,
+  MatchcenterRoute: MatchcenterRouteWithChildren,
   StatistikRoute: StatistikRoute,
 }
 export const routeTree = rootRouteImport
