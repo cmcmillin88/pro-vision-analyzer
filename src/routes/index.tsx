@@ -79,7 +79,12 @@ function DashboardPage() {
               <SectionTitle
                 title="Matchlista"
                 subtitle="Kommande matcher med AI-utvärdering"
-                action={<Button variant="outline" size="sm">Visa alla</Button>}
+                action={
+                  <Link to="/matchcenter">
+                    <Button variant="outline" size="sm">Visa alla</Button>
+                  </Link>
+                }
+
               />
             </div>
             <DataTable columns={matchColumns} rows={MATCHES} getRowKey={(m) => m.id} />
