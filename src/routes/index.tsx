@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/layout/AppShell";
 import { KPICard } from "@/components/KPICard";
 import { Card } from "@/components/Card";
@@ -9,9 +9,10 @@ import { Button } from "@/components/Button";
 import { PageHeader } from "@/components/PageHeader";
 import { Section } from "@/components/Section";
 import { ChartCard } from "@/components/ChartCard";
-import { KPIS, MATCHES, ALERTS } from "@/services/mockData";
+import { KPIS, MATCHES, ALERTS, getOdds } from "@/services/mockData";
 import { Bell } from "lucide-react";
 import type { Match } from "@/types";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,18 +25,29 @@ export const Route = createFileRoute("/")({
 });
 
 const matchColumns: Column<Match>[] = [
-  { key: "time",   header: "Tid",     render: (m) => <span className="tabular-nums text-muted-foreground">{m.time}</span> },
+  { key: "time",   header: "Tid",     render: (m) => <span className="tabular-nums text-muted-foreground">{m.kickoff}</span> },
   { key: "league", header: "Liga",    render: (m) => <span className="text-muted-foreground">{m.league}</span> },
-  { key: "match",  header: "Match",   render: (m) => <span className="font-medium">{m.home} – {m.away}</span> },
-  { key: "odds",   header: "1 / X / 2", render: (m) => (
-      <span className="tabular-nums text-sm">
-        {m.odds["1"].toFixed(2)} · {m.odds.X.toFixed(2)} · {m.odds["2"].toFixed(2)}
-      </span>
+  { key: "match",  header: "Match",   render: (m) => (
+      <Link
+        to="/matchcenter/$matchId"
+        params={{ matchId: m.id }}
+        className="font-medium hover:text-primary transition-colors"
+      >
+        {m.home.name} – {m.away.name}
+      </Link>
     ) },
+  { key: "odds",   header: "1 / X / 2", render: (m) => {
+      const o = getOdds(m.id);
+      return (
+        <span className="tabular-nums text-sm">
+          {o.home.toFixed(2)} · {o.draw.toFixed(2)} · {o.away.toFixed(2)}
+        </span>
+      );
+    } },
   { key: "ai",     header: "AI",      render: (m) => <span className="font-semibold text-primary tabular-nums">{m.aiScore}</span> },
   { key: "value",  header: "Value",   render: (m) => (
-      <span className={m.value >= 10 ? "text-[color:var(--success)] tabular-nums" : "text-muted-foreground tabular-nums"}>
-        {m.value.toFixed(1)}%
+      <span className={m.valueScore >= 10 ? "text-[color:var(--success)] tabular-nums" : "text-muted-foreground tabular-nums"}>
+        {m.valueScore.toFixed(1)}%
       </span>
     ) },
   { key: "status", header: "Status",  render: (m) =>
@@ -44,6 +56,7 @@ const matchColumns: Column<Match>[] = [
       : <StatusBadge tone="info">Kommande</StatusBadge>
   },
 ];
+
 
 const alertTone = { info: "info", warning: "warning", danger: "danger" } as const;
 
